@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     /**
      * TODO: Initialiser l'état de la facture dès que la page est chargée
@@ -11,6 +11,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const invoiceTable = document.getElementById('invoiceTable').getElementsByTagName('tbody')[0];
     const invoiceTotal = document.getElementById('invoiceTotal');
 
+    // const alllignesintable = document.querySelector('tbody');
+    // const updateItemTotal = document.queryselector('.itemTotal');
+    // const updateInvoiceTotal = document.getElementById('invoiceTotal');
+    updateItemTotal();
+    updateInvoiceTotal();
+
+    const quantityInput = document.queryselector('.quantity')
+    const unitPriceInput = document.queryselector('.unitPrice')
+
+    console.log(invoiceTable);
+    console.log(invoiceTotal);
 
 
     /**
@@ -23,7 +34,21 @@ document.addEventListener('DOMContentLoaded', function() {
      * - Retourner le total calculé afin de pouvoir le réutiliser
      */
     function updateItemTotal(row) {
-       
+
+        const quantityInput = row.querySelector('.quantity').value
+        const unitPriceInput = row.querySelector('.unitPrice').value
+
+        const quantityresult = Number(quantityInput);
+        const unitPriceresult = parseFloat(unitPriceInput);
+
+        const itemTotal = quantityresult * unitPriceresult
+        console.log(itemTotal)
+
+        const itemTotalCell = row.querySelector('.itemTotal')
+        itemTotalCell.textContent = itemTotal.toFixed(2);
+
+        return itemTotal
+
     }
 
 
@@ -36,7 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
      * - Mettre à jour le texte de `invoiceTotal` avec la somme formatée en deux décimales
      */
     function updateInvoiceTotal() {
-       
+        let bigTotal =0;
+        const rows = invoiceTable.querySelectorAll('tr')
+        rows.forEach(row => {
+            const rowTotal = updateItemTotal(row)
+            bigTotal += rowTotal
+            invoiceTotal.textContent = bigTotal
+        });
+
     }
 
 
@@ -51,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * - Appeler updateInvoiceTotal pour recalculer le total global après l'ajout
      */
     function addNewItem() {
-        
+
 
     }
 
@@ -61,5 +93,5 @@ document.addEventListener('DOMContentLoaded', function() {
      * - Ajouter un bouton "Supprimer" sur chaque ligne
      * - Lorsque l'utilisateur clique dessus, retirer la ligne et recalculer le total via updateInvoiceTotal
      */
- 
+
 });
