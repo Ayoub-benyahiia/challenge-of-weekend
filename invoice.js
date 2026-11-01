@@ -14,16 +14,30 @@ document.addEventListener('DOMContentLoaded', function () {
     // const alllignesintable = document.querySelector('tbody');
     // const updateItemTotal = document.queryselector('.itemTotal');
     // const updateInvoiceTotal = document.getElementById('invoiceTotal');
-    updateItemTotal();
-    updateInvoiceTotal();
 
-    const quantityInput = document.queryselector('.quantity')
-    const unitPriceInput = document.queryselector('.unitPrice')
+    const quantityInput = document.querySelector('.quantity')
+    const unitPriceInput = document.querySelector('.unitPrice')
 
     console.log(invoiceTable);
     console.log(invoiceTotal);
 
+    invoiceTable.addEventListener('input', handleTableInput);
+    updateInvoiceTotal();
 
+
+
+
+    function handleTableInput(event) {
+        const target = event.target;
+        if (target.classList.contains('quantity') || target.classList.contains('unitPrice')) {
+            const row = target.closest('tr');
+            // Defensive Programming
+            if (row) {
+                updateItemTotal(row);
+                updateInvoiceTotal();
+            }
+        }
+    }
     /**
      * Fonction pour mettre à jour le total d'un article (ligne du tableau)
      * TODO:
@@ -61,14 +75,14 @@ document.addEventListener('DOMContentLoaded', function () {
      * - Mettre à jour le texte de `invoiceTotal` avec la somme formatée en deux décimales
      */
     function updateInvoiceTotal() {
-        let bigTotal =0;
+        let bigTotal = 0;
         const rows = invoiceTable.querySelectorAll('tr')
         rows.forEach(row => {
             const rowTotal = updateItemTotal(row)
             bigTotal += rowTotal
-            invoiceTotal.textContent = bigTotal
-        });
 
+        });
+        invoiceTotal.textContent = bigTotal.toFixed(2);
     }
 
 
