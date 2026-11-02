@@ -11,9 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const invoiceTable = document.getElementById('invoiceTable').getElementsByTagName('tbody')[0];
     const invoiceTotal = document.getElementById('invoiceTotal');
 
-    // const alllignesintable = document.querySelector('tbody');
-    // const updateItemTotal = document.queryselector('.itemTotal');
-    // const updateInvoiceTotal = document.getElementById('invoiceTotal');
 
     const quantityInput = document.querySelector('.quantity')
     const unitPriceInput = document.querySelector('.unitPrice')
@@ -97,10 +94,17 @@ document.addEventListener('DOMContentLoaded', function () {
      * - Appeler updateInvoiceTotal pour recalculer le total global après l'ajout
      */
     function addNewItem() {
-
-
+        const newItem = document.createElement('tr');
+        let Item = `
+                <td>Article 1</td>
+                <td><input type="number" value="0" class="quantity" min="0"></td>
+                <td><input type="number" value="00" class="unitPrice" min="0" step="0.01"></td>
+                <td class="itemTotal">00.00</td>`
+        newItem.innerHTML = Item;
+        invoiceTable.appendChild(newItem);
+        updateInvoiceTotal()
     }
-
+    window.addNewItem = addNewItem;
 
     /**
      * Bonus facultatif si les TODO précédents sont terminés:
