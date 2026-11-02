@@ -94,9 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
      * - Appeler updateInvoiceTotal pour recalculer le total global après l'ajout
      */
     function addNewItem() {
+        let itemCount = invoiceTable.querySelectorAll('tr').length
         const newItem = document.createElement('tr');
         let Item = `
-                <td>Article 1</td>
+                <td>Article ${itemCount +1}</td>
                 <td><input type="number" value="0" class="quantity" min="0"></td>
                 <td><input type="number" value="00" class="unitPrice" min="0" step="0.01"></td>
                 <td class="itemTotal">00.00</td>`
